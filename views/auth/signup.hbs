@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <h1>Registro de usuario</h1>
+
+            <form action="/registrar" method="POST">
+
+                <div class='form-group'>
+                    <label for='name'>Nombre</label>
+                    <input name='name' type='text' class='form-control' placeholder='Nombre' id='name'>
+                </div>
+
+                <div class='form-group'>
+                    <label for='lastName'>Apellidos</label>
+                    <input name='lastName' type='text' class='form-control' placeholder='Apellidos' id='lastName'>
+                </div>
+                <div class='form-group'>
+                    <label for='email'>Correo electrónico</label>
+                    <input name='email' type='text' class='form-control' placeholder='Correo electrónico' id='email'>
+                </div>
+
+                <div class='form-group'>
+                    <label for='username'>Nombre de usuario</label>
+                    <input name='username' type='text' class='form-control' placeholder='nombre de usuario'
+                        id='username'>
+                </div>
+                <div class='form-group'>
+                    <label for='password'>Contraseña</label>
+                    <input name='password' type='password' class='form-control' placeholder='******' id='password'>
+                </div>
+                <button type='submit' class='btn btn-dark btn-block'>Registrarme</button>
+                {{#if errorMsg}}
+                <p style="margin-top: 10px;background: red; color: white; text-align: center; padding: 10px">
+                    {{errorMsg}}</p>
+                {{/if}}
+            </form>
+
+        </div>
+    </div>
+</div>
