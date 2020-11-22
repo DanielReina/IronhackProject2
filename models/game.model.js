@@ -24,9 +24,13 @@ const gameSchema = new Schema({
         type: Number,
         required: true
     },
-    available: {
-        type: Boolean,
-        default: false
+    availableSale: {
+        type: Number,
+        default: 0
+    },
+    availableBuy: {
+        type: Number,
+        default: 0
     }
 
 }, {

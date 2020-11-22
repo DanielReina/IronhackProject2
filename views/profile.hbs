@@ -6,6 +6,10 @@
 <h3>Avatar</h3>
 <img src="#" alt="fotografía de {{user.username}}">
 <h3>Intereses</h3>
+
+ {{#if isAdmin}}
+  <a href="/coasters/delete?coasterId={{id}}" class="btn btn-dark">Borrar</a>
+ {{/if}}
 </div>
 </div>
 </div>

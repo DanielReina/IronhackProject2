@@ -1,0 +1,18 @@
+<div class="container coasters-index">
+  <h1 style="font-weight: 100">{{thegame.title}}</h1>
+
+  <h4>Dessarrollado por: {{thegame.developer}}</h4>
+  <p>Descripción: {{thegame.description}}</p>
+  <h4>Rating: {{thegame.rating}}/100</h4>
+  <h5>Unidades de {{title}} en venta: {{thegame.availableSale}}</h5>
+  <h5>Interesados en comprar {{title}}: {{thegame.availableBuy}}</h5>
+
+
+  <a href="/juegos" class="btn btn-dark">Volver a la lista de juegos</a>
+
+  <a href="/"></a>
+  {{#if isAdmin}}
+  <a href="/juegos/editar?gameId={{thegame.id}}" class="btn btn-dark">Editar</a>
+  <a href="/juegos/borrar?gameId={{thegame.id}}" class="btn btn-dark">Borrar</a>
+  {{/if}}
+</div>
