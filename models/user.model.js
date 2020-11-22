@@ -18,7 +18,11 @@ const userSchema = new Schema({
         default: 'Desconocido',
         set: text => text.charAt(0).toUpperCase()+ text.substring(1)      
     },
-    avatar: String,
+    avatar: {        
+        imageName: String,
+        path: String,
+        originalName: String
+    },
         
     email: {
         type: String,
