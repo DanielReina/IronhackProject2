@@ -18,7 +18,7 @@ router.post("/registrar", (req, res, next) => {
     const { username, password, name, lastName, email } = req.body
     console.log(req.body)
 
-    if (username === "" || password === "" || !email || !name) {
+    if (!username || !password || !email || !name) {
         res.render("auth/signup", { errorMsg: "Rellena todos los campos" })
         return
     }
@@ -61,7 +61,7 @@ router.get("/iniciar-sesion", (req, res) => res.render("auth/login",{ errorMsg: 
 
 // Inicio sesión (gestión)
 router.post("/iniciar-sesion", passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/perfil",
     failureRedirect: "/iniciar-sesion",
     failureFlash: true,
     passReqToCallback: true
