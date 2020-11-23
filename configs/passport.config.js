@@ -6,6 +6,7 @@ const LocalStrategy = require("passport-local").Strategy
 const flash = require("connect-flash")          // error control
 
 const User = require('./../models/user.model')
+const Shop = require('./../models/shop.model')
 
 module.exports = app => {
 
@@ -27,7 +28,12 @@ module.exports = app => {
     app.use(flash())             // error control
 
     passport.use(new LocalStrategy({ passReqToCallback: true }, (req, username, password, next) => {
-        User.findOne({ username }, (err, user) => {
+//   const userPromise = User.findOne({ username }, (err, user)
+//   const shopPromise = Shop.findOne({ username }, (err, user)
+
+//   Promise.all([userPromise, shopPromise])
+
+       User.findOne({ username }, (err, user) => {
             if (err) {
                 return next(err);
             }

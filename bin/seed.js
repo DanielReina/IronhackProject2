@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 
 const User = require('../models/user.model')
 const Game = require('../models/game.model')
+const Shop = require('../models/shop.model')
 
 const dbName = 'game-project'
 mongoose.connect(`mongodb://localhost/${dbName}`)
@@ -30,6 +31,17 @@ const games = [
         
     },
 ]
+
+const shops = [
+      {
+        username: 'Games Shop',
+        name: 'Games Shop',
+        location: '37.39119521169887, -6.045642640625131',
+        email: 'GamesShop@msn.es',
+       password: 'gamesshop',
+       role:'SHOP'
+    },
+]
    
 
 User
@@ -47,3 +59,11 @@ Game
         mongoose.connection.close()
     })
     .catch(err => console.log('Hubo un error, games: ', err))
+
+Shop
+.create(shops)
+.then(allShopsCreated => {
+    console.log(`Created ${allShopsCreated.length} shops`)
+    mongoose.connection.close()
+})
+.catch(err => console.log('Hubo un error, users: ', err))
