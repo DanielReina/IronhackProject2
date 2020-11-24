@@ -43,9 +43,6 @@ const userSchema = new Schema({
     sellingGames: [{
         type: Schema.Types.ObjectId,
         ref: 'Game',       // nombre del modelo asociado
-        quantity:{
-            type: Number
-        } 
     }],
     favoriteGames: [{
         type: Schema.Types.ObjectId,

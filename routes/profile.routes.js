@@ -10,9 +10,8 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 router.get('/', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']),(req, res) => {
     User
         .findById(req.user._id)
-        //.populate('game')
-        .then(() => console.log(req.user))
-        .then(() => res.render('profile/user-profile', { user: req.user }))
+        .populate('sellingGames')
+        .then(userFound => res.render('profile/user-profile', userFound))
         .catch(err => next(err))
 })
 
