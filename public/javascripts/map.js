@@ -2,18 +2,15 @@ let mapInstance
 
 function initApp() {
 
-      drawMap()
+  
     
   getUsersFromApi()
 }
     
-function drawMap() {
-    // let center = { lat: user.location.coordinates[0], lng: user.location.coordinates[1] }
+function drawMap(user) {
+    let center = { lat: user.location.coordinates[0], lng: user.location.coordinates[1] }
     mapInstance = new google.maps.Map(document.querySelector('#map'), {
-        center: {
-            lat: 37.381884,
-            lng: -5.987307
-        }, zoom: 14
+        center, zoom: 14
 
     })
 
@@ -37,13 +34,14 @@ class PlacesApiHandler {
 const apiHandler = new PlacesApiHandler()
 
 function getUsersFromApi() {
-    let id = document.querySelector('#deleteMe').value
+    let id = document.querySelector('#map').getAttribute('userId')
     console.log(id)
     
     apiHandler
       .getOneUser(id)
       .then(response => {
-       console.log(id)
+          console.log(id)
+              drawMap(response.data)
         drawMarkers(response.data)
       })
       .catch(err => console.log(err))
