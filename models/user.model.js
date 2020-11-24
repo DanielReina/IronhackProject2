@@ -39,8 +39,24 @@ const userSchema = new Schema({
         type: String,
         enum: ['ADMIN', 'NORMAL'],
         default: 'NORMAL'
+    },
+    sellingGames: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Game',       // nombre del modelo asociado
+        quantity:{
+            type: Number
+        } 
+    }],
+    favoriteGames: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Game'       // nombre del modelo asociado
+    }],
+    location: {
+        type: {
+            type: String
+        },
+        coordinates: [Number]
     }
-   
 }, {
     timestamps: true
 });

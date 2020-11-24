@@ -102,7 +102,7 @@ router.post("/registrar", (req, res, next) => {
 
 // Inicio sesión (renderizado formulario)
 router.get("/iniciar-sesion", (req, res) => {
-    res.render("auth/login", { errorMsg: req.flash("error") })
+    res.render("auth/login", { errorMsg: req.flash("error")})
    
 })
 
