@@ -35,13 +35,20 @@ const shopSchema = new Schema({
         type: String,
         default: 'SHOP'
     },
-    games: [{
-        game:{
+    sellingGames: [{
+        
         type: Schema.Types.ObjectId,
         ref: 'Game'       // nombre del modelo asociado
-    },
-        stock: Number
-} ],
+    
+        
+    }],
+    favoriteGames: [{
+        
+        type: Schema.Types.ObjectId,
+        ref: 'Game'       // nombre del modelo asociado
+    
+        
+    }],
     location: {                 
         type: {
             type: String
