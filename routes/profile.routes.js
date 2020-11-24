@@ -16,7 +16,7 @@ router.get('/', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']),(req
     })
 
 router.get('/avatar', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) => {
-       
+      console.log(req.user) 
     res.render('avatar', { user: req.user })
    
  
@@ -38,7 +38,32 @@ router.post('/avatar', CDNupload.single('imageFile'), (req, res) => {
 })
 
 
+router.get('/ubicacion', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) => {
+     
+    res.render('ubication', { user: req.user })
+})
+    
+router.post('/ubicacion', (req, res, next) => {
+   const { latitude, longitude } = req.body
+
+    const location = {
+        type: 'Point',
+        coordinates: [latitude, longitude]
+    }
+    User
+        .findByIdAndUpdate(req.user._id, {
+            location :   location      
+        })
+        .then(() => res.redirect('/perfil'))
+        .catch(err => next(new Error(err)))
+})
 
 
+router.get('/mapa', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) => {
+       
+    res.render('maps', { user: req.user })
+   
+ 
+})
 
 module.exports = router

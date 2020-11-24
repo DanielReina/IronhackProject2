@@ -13,10 +13,14 @@ router.get("/registrar/empresa", (req, res) => res.render("auth/business-signup"
 
 router.post("/registrar/empresa", (req, res, next) => {
 
-    const { username, password, name, location, email } = req.body
+    const { username, password, name, email, latitude, longitude} = req.body
+      const location = {
+        type: 'Point',
+        coordinates: [latitude, longitude]
+    }
     console.log(req.body)
 
-    if (!username || !password || !email || !name || !location) {
+    if (!username || !password || !email || !name) {
         res.render("auth/business-signup", { errorMsg: "Rellena todos los campos" })
         return
     }
@@ -44,10 +48,14 @@ router.post("/registrar/empresa", (req, res, next) => {
             Shop.create({ username, password: hashPass, name, location, email })
               
                 .then(() => res.redirect('/iniciar-sesion'))
-                .catch(err => {  console.log(username, password, name, location, email, err)
+                .catch(err => {  
                     res.render("auth/business-signup", { errorMsg: "Error, asegurate que todos los campos están rellenados correctamente" })
                 })
+            
         })
+        
+
+        
         .catch(error => next(error))
 })
 
@@ -60,8 +68,10 @@ router.get("/registrar", (req, res) => res.render("auth/signup"))
 // Registro (gestión)
 router.post("/registrar", (req, res, next) => {
 
-    const { username, password, name, lastName, email } = req.body
-    console.log(req.body)
+    const { username, password, name, lastName, email, } = req.body
+    
+      
+  
 
     if (!username || !password || !email || !name) {
         res.render("auth/signup", { errorMsg: "Rellena todos los campos" })
@@ -86,9 +96,10 @@ router.post("/registrar", (req, res, next) => {
             // Other validations
             const salt = bcrypt.genSaltSync(bcryptSalt)
             const hashPass = bcrypt.hashSync(password, salt)
-          
+
+         
             
-            User.create({ username, password: hashPass, name, lastName, email })
+            User.create({ username, password: hashPass, name, lastName, email})
               
                 .then(() => res.redirect('/iniciar-sesion'))
                 .catch(err => {  console.log(username, password, name, lastName, email, err)
@@ -109,7 +120,7 @@ router.get("/iniciar-sesion", (req, res) => {
 
 // Inicio sesión (gestión)
 router.post("/iniciar-sesion", passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/perfil",
     failureRedirect: "/iniciar-sesion",
     failureFlash: true,
     passReqToCallback: true

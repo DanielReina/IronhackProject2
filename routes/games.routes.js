@@ -59,11 +59,6 @@ router.get('/borrar', (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.get('/mapa', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) => {
-       
-    res.render('maps', { user: req.user })
-   
- 
-})
+
 
 module.exports = router

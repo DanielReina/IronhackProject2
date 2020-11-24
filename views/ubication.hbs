@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <h1>Ubicación</h1>
+
+            <form action="/perfil/ubicacion" method="POST">
+
+                
+
+                <div class='form-group'>
+                   
+
+                    <input type="text" name="latitude" placeholder="latitud"><br><br>
+                    <input type="text" name="longitude" placeholder="longitud"><br><br>
+                    <p><small>Ejemplo: 37.39119521169887, -6.045642640625131</small></p>
+                </div>
+
+               
+                <button type='submit' class='btn btn-dark btn-block'>Añadir</button>
+                {{#if errorMsg}}
+                <p style="margin-top: 10px;background: red; color: white; text-align: center; padding: 10px">
+                    {{errorMsg}}</p>
+                {{/if}}
+            </form>
+
+        </div>
+    </div>
+</div>

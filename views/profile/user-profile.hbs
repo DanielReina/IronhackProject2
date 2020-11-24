@@ -4,11 +4,13 @@
 <h1>Bienvenid@ {{user.username}}</h1>
 
 <h3>Avatar</h3>
-<img src="#" alt="fotografía de {{user.username}}">
+<img class='perfil-image' src="{{user.avatar.path}}" alt="fotografía de {{user.username}}">
 <hr>
 <a href='/perfil/avatar'>Subir Avatar</a>
 <hr>
-
+<a href="/perfil/mapa" class="btn btn-dark">Ir a mapas</a>
+<hr>
+<a href="/perfil/ubicacion" class="btn btn-dark">Añadir ubicación</a>
 
 
 <h3>Intereses</h3>
