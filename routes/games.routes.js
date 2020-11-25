@@ -33,6 +33,32 @@ router.get('/favoritos', (req, res, next) => {
     .catch(err => next(err))
 })
 
+/*
+router.get('/incluir-venta', (req, res, next) => {
+    const gameId = req.query.gameId
+    let stockNumber = req.user.stock[0].number
+    Game
+    .findById(gameId)
+    .then(game=>{console.log(stockNumber)
+    User
+    .findByIdAndUpdate(req.user._id, {$push: {stock:{number: stockNumber+1, name: game.title}
+
+    } }, {new:true})
+    .then(() =>{ 
+        let totalstock=0
+        for (let i = 0; i < req.user.stock.length; i++) {
+         if(req.user.stock[i].name ===game.title){
+totalstock+=req.user.stock[i].number
+         }
+            
+        }
+        res.redirect('/perfil')
+})
+    .catch(err => next(err))
+})
+})
+*/
+
 router.get('/editar', (req, res, next) => {
     const gameId = req.query.gameId
     Game
@@ -68,9 +94,12 @@ router.get('/borrarfavoritos', (req, res, next) => {
 })
 router.get('/ventas',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
     const gameId = req.query.gameId
-    Game
-        .findById(gameId)
-        .then(thegame => res.render('games/sell-games', {thegame, user: req.user }))
+    User
+        .find({ sellingGames: { $all: [`${gameId}`] } } )
+        .then(theUsers => {
+            console.log(theUsers )
+            res.render('games/sell-games', {theUsers, user: req.user })
+    })
         .catch(err => next(err))
 })
 router.get('/incluir-venta',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {

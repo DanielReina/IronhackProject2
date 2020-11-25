@@ -17,10 +17,20 @@ router.get('/', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']),(req
 })
 
 router.get('/nuevojuego', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) =>   res.render('profile/add-game', { user: req.user, allGames: req.user.games }))
-/*
-router.post("/nuevojuego", (req, res, next) => {
 
-    const { title, description, developer, rating } = req.body
+router.post('/nuevojuego', (req, res, next) => {
+    const { title, description, developer, rating, availableSale } = req.body
+    
+    Game
+        .create({ title, description, developer, rating, availableSale })
+        .then(newGame => User.findByIdAndUpdate(req.user._id, {$push: {sellingGames: newGame._id}}))
+        .then(()=> res.redirect('/'))
+        .catch(err => next(err))
+})
+/*
+// router.post("/nuevojuego", (req, res, next) => {
+
+//     const { title, description, developer, rating } = req.body
 
     if (!title || !description || !developer || !rating ) {
         res.render("profile/add-game", { errorMsg: "Rellena todos los campos" })
