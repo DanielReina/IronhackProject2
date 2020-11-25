@@ -4,6 +4,7 @@ const passport = require("passport")
 const User = require('../models/user.model')
 const Game = require('../models/game.model')
 const CDNupload = require('./../configs/cdn-upload.config')
+const { findById } = require("../models/user.model")
 
 const ensureAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.render('auth/login', { errorMsg: 'Por favor, inicie sesión para continuar'})
 const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(req.user.role) ? next() : res.render('auth/login', { errorMsg: 'Por favor, inicie sesión para continuar' })
@@ -30,17 +31,6 @@ router.get('/favoritos', (req, res, next) => {
     .findByIdAndUpdate(req.user._id, {$push: {favoriteGames: gameId}}, {new:true})
     .then(() => res.redirect('/perfil'))
     .catch(err => next(err))
-})
-
-router.get('/nuevo', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => res.render('games/game-add'))
-
-router.post('/nuevo', (req, res, next) => {
-    const { title, description, developer, rating } = req.body
-
-    Game
-        .create({title, description, developer, rating})
-        .then(() => res.redirect('/juegos'))
-        .catch(err => next(err))
 })
 
 router.get('/editar', (req, res, next) => {
@@ -83,13 +73,28 @@ router.get('/ventas',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, 
         .then(thegame => res.render('games/sell-games', {thegame, user: req.user }))
         .catch(err => next(err))
 })
-
 router.get('/incluir-venta',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
     const gameId = req.query.gameId
     Game
         .findById(gameId)
-        .then(thegame => res.render('games/ad-sell', {thegame, user: req.user }))
+        .then(theGame => res.render('games/add-sell', theGame))
         .catch(err => next(err))
+})
+
+router.post('/incluir-venta', (req, res, next) => {
+    const gameId = req.query.gameId 
+    const {wantsale} = req.body
+    Game
+        .findById(gameId)
+        .then(theGame => {
+            User
+            .findByIdAndUpdate(req.user.id, {$pull: {stock: { name: theGame.title}}})
+            .then(() => User.findByIdAndUpdate(req.user.id, {$push: {stock: {number: wantsale, name: theGame.title}}})
+                .then(() => console.log(wantsale))
+                .then(() => res.redirect("/"))
+                .catch(err => next(err)))
+                })
+    .catch(err => next(err))
 })
 
 router.get('/imagen', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) =>  { 
