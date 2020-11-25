@@ -1,46 +1,45 @@
 <div class='container'>
-    <div class='row justify-content-md-center'>
-        <div class='cl-md-6'>
-            <h1>Bienvenid@ {{username}}</h1>
+    <div class='row justify-content-between'>
+        <div class='cl-md-6' style="margin: 20px">
 
-            <h3>Avatar</h3>
+
             <img class='perfil-image' src="{{avatar.path}}" alt="fotografía de {{username}}">
-            <hr>
-            <a href='/perfil/avatar'>Subir Avatar</a>
-            <hr>
-            <a href="/perfil/mapa" class="btn btn-dark">Ir a mapas</a>
-            <hr>
-            <a href="/perfil/ubicacion" class="btn btn-dark">Añadir ubicación</a>
-
-            <hr>
-            <section class="container">
-
-                <h3>Jugos añadidos por {{username}}</h3>
-
-                <div class="row">
-                    {{#each sellingGames}}
-                    {{>gameCard this}}
-                    {{/each}}
-                </div>
 
         </div>
+        <div class='cl-md-4' style="margin: 20px">
+            <h1>Bienvenid@ {{username}}</h1>
+            <hr>
+            <a href='/perfil/avatar' class="btn btn-dark">Subir Avatar</a>
+            <a href="/perfil/mapa" class="btn btn-dark">Ir a mapas</a>
+            <a href="/perfil/ubicacion" class="btn btn-dark">Añadir ubicación</a>
+            <a href="/perfil/nuevojuego" class="btn btn-dark">Añade un juego a la BD</a>
+        </div>
+
+        <hr>
+        <section class="container">
+
+            <h3>Jugos añadidos:</h3>
+
+            <div class="row">
+                {{#each sellingGames}}
+                {{>gameCard this}}
+                {{/each}}
+            </div>
         </section>
-        <a href="/perfil/nuevojuego" class="btn btn-dark">Añade un juego a tu lista de venta</a>
+
 
         <section class="container">
 
-            <h3>Jugos favoritos de {{username}}</h3>
+            <h3>Tus juegos favoritos:</h3>
 
             <div class="row">
                 {{#each favoriteGames}}
                 {{>gameCard this}}
+                <br>
+                <a href="/juegos/borrarfavoritos?gameId={{_id}}" class="btn btn-dark" style="height: 40px">Borrar</a>
                 {{/each}}
             </div>
-
+        </section>
     </div>
 
-
-
-    </div>
-  </div>
 </div>

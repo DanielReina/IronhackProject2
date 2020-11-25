@@ -22,7 +22,9 @@ const gameSchema = new Schema({
     
     rating: {
         type: Number,
-        required: true
+        required: true,
+        min: 0,
+        max: 100
     },
     availableSale: {
         type: Number,

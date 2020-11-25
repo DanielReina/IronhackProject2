@@ -4,12 +4,10 @@
   <h4>Dessarrollado por: {{thegame.developer}}</h4>
   <p>Descripción: {{thegame.description}}</p>
   <h4>Rating: {{thegame.rating}}/100</h4>
-  <h5>Unidades de {{tthegame.itle}} en venta: {{thegame.availableSale}}</h5>
+  <h5>Unidades de {{thegame.title}} en venta: {{thegame.availableSale}}</h5>
   <h5>Interesados en comprar {{thegame.title}}: {{thegame.availableBuy}}</h5>
 
-  <form action="/juegos/detalles/{{thegame.id}}" method="POST">
-    <button type='submit' class='btn btn-dark btn-block' id="btnadd">Añadir a favoritos</button>
-  </form>
+  <a href="/juegos/favoritos?gameId={{thegame.id}}" class="btn btn-dark">Añadir a favoritos</a>
 
   <a href="/juegos" class="btn btn-dark">Volver a la lista de juegos</a>
   <hr>
@@ -28,6 +26,7 @@
   function change() {
     document.getElementById('btnadd').style.backgroundColor = "green"
     document.getElementById('btnadd').innerHTML = "¡Añadido!"
+    //document.getElementById('btnadd').setAttribute('btnadd', 'addbtn')
     return false;
   }
 

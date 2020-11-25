@@ -16,20 +16,20 @@ router.get('/', (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.get('/detalles/:id',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
-    const gameId = req.params.id
+router.get('/detalles',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
+    const gameId = req.query.gameId
     Game
         .findById(gameId)
         .then(thegame => res.render('games/game-details', { thegame, user: req.user, isAdmin: req.user.role.includes('ADMIN') }))
         .catch(err => next(err))
 })
 //añadir a favoritos
-router.post('/detalles/:id', (req, res, next) => {
-    const gameId = req.params.id
-    Game
-        .findById(gameId)
-        .then(newGame => User.findByIdAndUpdate(req.user._id, {$push: {favoriteGames: newGame._id}}))
-        .catch(err => next(err))
+router.get('/favoritos', (req, res, next) => {
+    const gameId = req.query.gameId
+    User
+    .findByIdAndUpdate(req.user._id, {$push: {favoriteGames: gameId}}, {new:true})
+    .then(() => res.redirect('/perfil'))
+    .catch(err => next(err))
 })
 
 router.get('/nuevo', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => res.render('games/game-add'))
@@ -42,6 +42,7 @@ router.post('/nuevo', (req, res, next) => {
         .then(() => res.redirect('/juegos'))
         .catch(err => next(err))
 })
+
 router.get('/editar', (req, res, next) => {
     const gameId = req.query.gameId
     Game
@@ -68,7 +69,13 @@ router.get('/borrar', (req, res, next) => {
         .catch(err => next(err))
 })
 
-
+router.get('/borrarfavoritos', (req, res, next) => {
+    const gameId = req.query.gameId
+    User
+    .findByIdAndUpdate(req.user._id, {$pull: {favoriteGames: gameId}}, {new:true})
+    .then(() => res.redirect('/perfil'))
+    .catch(err => next(err))
+})
 
 router.get('/imagen', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) =>  { 
     const gameId = req.query.gameId
@@ -76,7 +83,6 @@ router.get('/imagen', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']
     res.render('games/image-game', {gameId})
 })    
 router.post('/imagen', CDNupload.single('imageFile'), (req, res, next) => {  
-    //  let idimages =document.querySelector('#idimage').getAttribute('idimage')
     const gameId = req.query.gameId
     console.log(req.query.gameId)
     Game

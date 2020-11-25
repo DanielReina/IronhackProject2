@@ -28,7 +28,10 @@
           <label for="rating-input">Number of copies to sell</label>
           <input name="availableSale" type="number" class="form-control" id="sellingGames-input">
         </div>
-        
+        {{#if errorMsg}}
+        <p style="margin-top: 10px;background: red; color: white; text-align: center; padding: 10px">
+          {{errorMsg}}</p>
+        {{/if}}
         <button type="submit" class="btn btn-dark">¡Añadir juego!</button>
 
         <a href="/" class="btn btn-dark">Volver</a>

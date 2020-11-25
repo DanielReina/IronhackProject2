@@ -1,14 +1,12 @@
-<div class="container coasters-index">
-
-  <h1 style="font-weight: 100">Índice de Juegos</h1>
-  {{#each allgames}}
-  <hr>
-  {{!-- <img src="{{images}}" alt="foto de {{title}}, desarrollado por {{developer}}"> --}}
-  <h4>{{title}}</h4>
-  <h5>Desarrollado por: {{developer}}</h5>
-  <a href="/juegos/detalles/{{id}}" class="btn btn-dark">más detalles</a>
-  {{/each}}
-
+<div class="container">
+  <section style="margin: 20px">
+    <h3>Jugos añadidos:</h3>
+    <div class="row">
+      {{#each allgames}}
+      {{>gameCard this}}
+      {{/each}}
+    </div>
+  </section>
   <h4>¿No está el juego que buscas?</h4><a href="/juegos/nuevo" class="btn btn-dark">¡ Añádelo ! </a>
   <a href="/" class="btn btn-dark">Volver al inicio</a>
 </div>

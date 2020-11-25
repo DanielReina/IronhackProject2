@@ -1,10 +1,11 @@
 <div class="col-md-3">
 
-    <article class="card">
-        <img class="card-img-top" src="{{this.avatar.path}}">
+    <article class="card" style="margin: 10px">
         <div class="card-body">
-            <h5 class="card-title">{{this.title}} <br> Desarrolado por: {{this.developer}}</h5>
+            <h5 class="card-title">{{this.title}}</h5>
             <hr>
+            <a href="/juegos/detalles?gameId={{this.id}}"><img class="card-img-top" src="{{this.images}}"
+                    alt="foto de {{this.title}}"></a>
         </div>
     </article>
 
