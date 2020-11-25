@@ -7,10 +7,16 @@ body {
   height: 500px;
  
 }
-
-.perfil-image {
+img{
   width: 200px;
 }
-.deleteMe{
-  display: none;
+main{
+  background-image: url(/images/bground3.jpg);
+  background-size: cover;  
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+.coasters-index{
+  background-color:white;
+  opacity: .85;
 }

@@ -10,26 +10,27 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 
 router.get('/', (req, res, next) => {
     Game
-        .find({}, {title: 1, developer: 1})
+        .find({}, {title: 1, developer: 1, images:1})
         .then(allgames => {
         res.render('games/game-list', {allgames})})
         .catch(err => next(err))
 })
 
-router.get('/detalles/:id',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
-    const gameId = req.params.id
+router.get('/detalles',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
+    const gameId = req.query.gameId
     Game
         .findById(gameId)
         .then(thegame => res.render('games/game-details', { thegame, user: req.user, isAdmin: req.user.role.includes('ADMIN') }))
         .catch(err => next(err))
 })
 //añadir a favoritos
-router.post('/detalles/:id', (req, res, next) => {
-    const gameId = req.params.id
-    Game
-        .findById(gameId)
-        .then(newGame => User.findByIdAndUpdate(req.user._id, {$push: {favoriteGames: newGame._id}}))
-        .catch(err => next(err))
+router.get('/favoritos', (req, res, next) => {
+    const gameId = req.query.gameId
+  
+    User
+    .findByIdAndUpdate(req.user._id, {$push: {favoriteGames: gameId}}, {new:true})
+    .then(() => res.redirect('/perfil'))    
+    .catch(err => next(err))
 })
 
 router.get('/nuevo', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => res.render('games/game-add'))
@@ -68,7 +69,21 @@ router.get('/borrar', (req, res, next) => {
         .catch(err => next(err))
 })
 
+router.get('/ventas',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
+    const gameId = req.query.gameId
+    Game
+        .findById(gameId)
+        .then(thegame => res.render('games/sell-games', {thegame, user: req.user }))
+        .catch(err => next(err))
+})
 
+router.get('/incluir-venta',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
+    const gameId = req.query.gameId
+    Game
+        .findById(gameId)
+        .then(thegame => res.render('games/ad-sell', {thegame, user: req.user }))
+        .catch(err => next(err))
+})
 
 router.get('/imagen', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) =>  { 
     const gameId = req.query.gameId
