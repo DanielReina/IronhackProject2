@@ -11,6 +11,7 @@ router.get('/', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']),(req
     User
         .findById(req.user._id)
         .populate('sellingGames')
+        .populate('favoriteGames')
         .then(userFound => res.render('profile/user-profile', userFound))
         .catch(err => next(err))
 })
@@ -25,7 +26,8 @@ router.post('/nuevojuego', (req, res, next) => {
         .then(newGame => User.findByIdAndUpdate(req.user._id, {$push: {sellingGames: newGame._id}}/*,{$push: {sellingGames: newGame.availableSale}} */))
         .then(()=> res.redirect('/'))
         .catch(err => next(err))
-    })
+})
+
 
 router.get('/avatar', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) =>   res.render('avatar', { user: req.user }))
     

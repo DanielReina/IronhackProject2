@@ -28,10 +28,6 @@ module.exports = app => {
     app.use(flash())             // error control
 
     passport.use(new LocalStrategy({ passReqToCallback: true }, (req, username, password, next) => {
-//   const userPromise = User.findOne({ username }, (err, user)
-//   const shopPromise = Shop.findOne({ username }, (err, user)
-
-//   Promise.all([userPromise, shopPromise])
 
        User.findOne({ username }, (err, user) => {
             if (err) {

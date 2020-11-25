@@ -1,27 +1,43 @@
-<div class='container' >
+<div class='container'>
     <div class='row justify-content-md-center'>
         <div class='cl-md-6'>
-<h1>Bienvenid@ {{username}}</h1>
+            <h1>Bienvenid@ {{username}}</h1>
 
-<h3>Avatar</h3>
-<img class='perfil-image' src="{{user.avatar.path}}" alt="fotografía de {{user.username}}">
-<hr>
-<a href='/perfil/avatar'>Subir Avatar</a>
-<hr>
-<a href="/perfil/mapa" class="btn btn-dark">Ir a mapas</a>
-<hr>
-<a href="/perfil/ubicacion" class="btn btn-dark">Añadir ubicación</a>
+            <h3>Avatar</h3>
+            <img class='perfil-image' src="{{avatar.path}}" alt="fotografía de {{username}}">
+            <hr>
+            <a href='/perfil/avatar'>Subir Avatar</a>
+            <hr>
+            <a href="/perfil/mapa" class="btn btn-dark">Ir a mapas</a>
+            <hr>
+            <a href="/perfil/ubicacion" class="btn btn-dark">Añadir ubicación</a>
 
-<hr>
-<h1>AQUI VA EL JUEGO:</h1>
-<h1>{{sellingGames.length}}</h1>
-<a href="/perfil/nuevojuego" class="btn btn-dark">Añade un juego a tu lista de venta</a>
+            <hr>
+            <section class="container">
 
+                <h3>Jugos añadidos por {{username}}</h3>
 
-<h3>Intereses</h3>
+                <div class="row">
+                    {{#each sellingGames}}
+                    {{>gameCard this}}
+                    {{/each}}
+                </div>
 
- 
- 
+        </div>
+        </section>
+        <a href="/perfil/nuevojuego" class="btn btn-dark">Añade un juego a tu lista de venta</a>
+
+        <section class="container">
+
+            <h3>Jugos favoritos de {{username}}</h3>
+
+            <div class="row">
+                {{#each favoriteGames}}
+                {{>gameCard this}}
+                {{/each}}
+            </div>
+
+    </div>
 
 </div>
 </div>
