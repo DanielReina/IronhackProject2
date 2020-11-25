@@ -53,7 +53,19 @@ const userSchema = new Schema({
             type: String
         },
         coordinates: [Number]
-    }
+    },
+    stock:[
+        {
+        number:{
+            type: Number,
+            default:0,
+            min: 0,
+            max: 100
+        },
+        name:{
+            type:String
+        }
+    }]
 }, {
     timestamps: true
 });
