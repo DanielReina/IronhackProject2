@@ -18,7 +18,7 @@ const gameSchema = new Schema({
         required: true,
         default: 'Desconocido',
     },
-    images: [String],
+    images: String,
     
     rating: {
         type: Number,

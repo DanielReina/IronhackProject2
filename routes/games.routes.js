@@ -3,6 +3,7 @@ const router = express.Router()
 const passport = require("passport")
 const User = require('../models/user.model')
 const Game = require('../models/game.model')
+const CDNupload = require('./../configs/cdn-upload.config')
 
 const ensureAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.render('auth/login', { errorMsg: 'Por favor, inicie sesión para continuar'})
 const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(req.user.role) ? next() : res.render('auth/login', { errorMsg: 'Por favor, inicie sesión para continuar' })
@@ -59,6 +60,28 @@ router.get('/borrar', (req, res, next) => {
         .catch(err => next(err))
 })
 
+
+
+router.get('/imagen', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) =>  { 
+    const gameId = req.query.gameId
+    console.log(req.query.gameId)
+    res.render('games/image-game', {gameId})
+})    
+router.post('/imagen', CDNupload.single('imageFile'), (req, res, next) => {  
+    //  let idimages =document.querySelector('#idimage').getAttribute('idimage')
+    const gameId = req.query.gameId
+    console.log(req.query.gameId)
+    Game
+        .findByIdAndUpdate(gameId, {
+           images: req.file.path         
+        })
+        .then(() => {
+           
+            console.log(req.file.path )
+            res.redirect('/juegos')
+    })
+        .catch(err => next(new Error(err)))
+})
 
 
 module.exports = router
