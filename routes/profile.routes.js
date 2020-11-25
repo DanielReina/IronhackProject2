@@ -24,7 +24,8 @@ router.post('/nuevojuego', (req, res, next) => {
     Game
         .create({ title, description, developer, rating, availableSale })
         .then(newGame => User.findByIdAndUpdate(req.user._id, {$push: {sellingGames: newGame._id}}))
-        .then(()=> res.redirect('/'))
+        .then(()=> User.findByIdAndUpdate(req.user._id, {$push: {stock:{number: availableSale, name: title}}}))
+        .then(()=> res.redirect('/perfil'))
         .catch(err => next(err))
 })
 /*
@@ -53,15 +54,6 @@ router.post('/nuevojuego', (req, res, next) => {
         .catch(error => next(error))
 })*/
 
-router.post('/nuevojuego', (req, res, next) => {
-    const { title, description, developer, rating, availableSale } = req.body
-    
-    Game
-        .create({ title, description, developer, rating, availableSale })
-        .then(newGame => User.findByIdAndUpdate(req.user._id, {$push: {sellingGames: newGame._id}}))
-        .then(()=> res.redirect('/'))
-        .catch(err => next(err))
-})
 router.get('/avatar', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) =>   res.render('avatar', { user: req.user }))
     
 router.post('/avatar', CDNupload.single('imageFile'), (req, res) => {

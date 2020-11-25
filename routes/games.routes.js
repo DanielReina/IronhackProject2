@@ -118,11 +118,11 @@ router.post('/incluir-venta', (req, res, next) => {
         .then(theGame => {
             User
             .findByIdAndUpdate(req.user.id, {$pull: {stock: { name: theGame.title}}})
-            .then(() => User.findByIdAndUpdate(req.user.id, {$push: {stock: {number: wantsale, name: theGame.title}}})
-                .then(() => console.log(wantsale))
-                .then(() => res.redirect("/"))
-                .catch(err => next(err)))
-                })
+            .then(() => User.findByIdAndUpdate(req.user.id, {$push: {stock: {number: wantsale, name: theGame.title}}}))
+            .then(() => User.findByIdAndUpdate(req.user.id, {$push: {sellingGames: gameId}}))
+            .then(() => res.redirect("/perfil"))
+            .catch(err => next(err))
+            })
     .catch(err => next(err))
 })
 
