@@ -33,7 +33,11 @@ const gameSchema = new Schema({
     availableBuy: {
         type: Number,
         default: 0
-    }
+    },
+    // sellingGames: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Game',       // nombre del modelo asociado
+    // }],
 
 }, {
     timestamps: true

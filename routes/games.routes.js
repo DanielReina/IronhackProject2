@@ -10,7 +10,7 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 
 router.get('/', (req, res, next) => {
     Game
-        .find({}, {title: 1, developer: 1})
+        .find({}, {title: 1, developer: 1, images:1})
         .then(allgames => {
         res.render('games/game-list', {allgames})})
         .catch(err => next(err))
@@ -75,6 +75,21 @@ router.get('/borrarfavoritos', (req, res, next) => {
     .findByIdAndUpdate(req.user._id, {$pull: {favoriteGames: gameId}}, {new:true})
     .then(() => res.redirect('/perfil'))
     .catch(err => next(err))
+})
+router.get('/ventas',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
+    const gameId = req.query.gameId
+    Game
+        .findById(gameId)
+        .then(thegame => res.render('games/sell-games', {thegame, user: req.user }))
+        .catch(err => next(err))
+})
+
+router.get('/incluir-venta',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
+    const gameId = req.query.gameId
+    Game
+        .findById(gameId)
+        .then(thegame => res.render('games/ad-sell', {thegame, user: req.user }))
+        .catch(err => next(err))
 })
 
 router.get('/imagen', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) =>  { 
