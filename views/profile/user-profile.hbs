@@ -21,8 +21,8 @@
             <h3 style="background-color: white">Jugos añadidos:</h3>
 
             <div class="row">
-                {{#each sellingGames}}
-                {{>gameCard this}}
+                {{#each stock}}
+                {{>gameCard this.game}}
                 {{/each}}
             </div>
         </section>

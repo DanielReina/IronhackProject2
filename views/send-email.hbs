@@ -4,10 +4,7 @@
             <h1>Enviar un email</h1>
             <hr>
             <form method="POST" action="/email">
-                <div class="form-group">
-                    <label for="to">Destinatario</label>
-                    <input name="email" type="email" class="form-control" id="to" placeholder="email destinatario">
-                </div>
+              <h3>Correo dirigido a {{username}}</h3>
                 <div class="form-group">
                     <label for="subject">Asunto</label>
                     <input name="subject" type="text" class="form-control" id="subject">
