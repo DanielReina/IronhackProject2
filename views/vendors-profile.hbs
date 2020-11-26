@@ -10,14 +10,16 @@
                 <div >
             <h3>Juegos en venta:</h3>
             
-                {{#each sellingGames}}
-                {{>gameCard this}}
+               {{#each stock}}
+                {{>gameCard this.game}}
                 {{/each}}
             </div>
         </div>
  
     <hr>
     <h3>Correo electrónico: {{email}}</h3>
+    <h3><a href="/email?vendorsId={{_id}}"
+      class="btn btn-dark">Enviar un e-mail</a></h3>
 </div>
 
 

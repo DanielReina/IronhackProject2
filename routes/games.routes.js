@@ -32,31 +32,31 @@ router.get('/favoritos', (req, res, next) => {
     .catch(err => next(err))
 })
 
-/*
-router.get('/incluir-venta', (req, res, next) => {
-    const gameId = req.query.gameId
-    let stockNumber = req.user.stock[0].number
-    Game
-    .findById(gameId)
-    .then(game=>{console.log(stockNumber)
-    User
-    .findByIdAndUpdate(req.user._id, {$push: {stock:{number: stockNumber+1, name: game.title}
 
-    } }, {new:true})
-    .then(() =>{ 
-        let totalstock=0
-        for (let i = 0; i < req.user.stock.length; i++) {
-         if(req.user.stock[i].name ===game.title){
-totalstock+=req.user.stock[i].number
-         }
+// router.get('/incluir-venta', (req, res, next) => {
+//     const gameId = req.query.gameId
+//     let stockNumber = req.user.stock[0].number
+//     Game
+//     .findById(gameId)
+//     .then(game=>{console.log(stockNumber)
+//     User
+//     .findByIdAndUpdate(req.user._id, {$push: {stock:{number: stockNumber, name: game.title}
+
+//     } }, {new:true})
+//     .then(() =>{ 
+//         let totalstock=0
+//         for (let i = 0; i < req.user.stock.length; i++) {
+//          if(req.user.stock[i].name ===game.title){
+// totalstock+=req.user.stock[i].number
+//          }
             
-        }
-        res.redirect('/perfil')
-})
-    .catch(err => next(err))
-})
-})
-*/
+//         }
+//         res.redirect('/perfil')
+// })
+//     .catch(err => next(err))
+// })
+// })
+
 
 router.get('/editar', (req, res, next) => {
     const gameId = req.query.gameId
@@ -93,11 +93,13 @@ router.get('/borrarfavoritos', (req, res, next) => {
 })
 router.get('/ventas',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
     const gameId = req.query.gameId
+    
     User
-        .find({ sellingGames: { $all: [`${gameId}`] } } )
+        .find({ 'stock.game':{ $all: [`${gameId}`]  } })
         .then(theUsers => {
             console.log(theUsers )
-            res.render('games/sell-games', {theUsers, user: req.user, number: req.user.stock.number })
+    const gameId = req.query.gameId
+            res.render('games/sell-games', {theUsers})
     })
         .catch(err => next(err))
 })
@@ -106,7 +108,7 @@ router.get('/vendedores',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (r
     const userId = req.query.userId
     User
     .findById(userId)
-    .populate('sellingGames')
+    .populate('stock.game')
     .then(theVendor => {
         console.log(theVendor)
         res.render('vendors-profile.hbs', theVendor)
@@ -126,16 +128,12 @@ router.post('/incluir-venta', (req, res, next) => {
     const gameId = req.query.gameId 
     const {wantsale} = req.body
     Game
-        .findById(gameId)
-        .then(theGame => {
-            User
-            .findByIdAndUpdate(req.user.id, {$pull: {stock: { name: theGame.title}}})
-            .then(() => User.findByIdAndUpdate(req.user.id, {$push: {stock: {number: wantsale, name: theGame.title}}}))
-            .then(() => User.findByIdAndUpdate(req.user.id, {$push: {sellingGames: gameId}}))
-            .then(() => res.redirect("/perfil"))
-            .catch(err => next(err))
-            })
-    .catch(err => next(err))
+        .findByIdAndUpdate(gameId,{$inc: {availableSale: wantsale}}, {new: true})
+        .then(theGame =>{
+            // if()
+            User.findByIdAndUpdate(req.user._id, {$push: {stock: { game:theGame._id, number: wantsale}}}, {new: true})})
+        .then(()=> res.redirect("/perfil"))
+        .catch(err => next(err))
 })
 
 router.get('/imagen', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) =>  { 

@@ -10,7 +10,7 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 router.get('/', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']),(req, res) => {
     User
         .findById(req.user._id)
-        .populate('sellingGames')
+        .populate('stock.game')
         .populate('favoriteGames')
         .then(userFound => res.render('profile/user-profile', userFound))
         .catch(err => next(err))
@@ -18,13 +18,20 @@ router.get('/', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']),(req
 
 router.get('/nuevojuego', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) =>   res.render('profile/add-game', { user: req.user, allGames: req.user.games }))
 
-router.post('/nuevojuego', (req, res, next) => {
+router.post('/nuevojuego', CDNupload.single('imageFile'),(req, res, next) => {
     const { title, description, developer, rating, availableSale } = req.body
-    
+    const images=req.file.path
     Game
-        .create({ title, description, developer, rating, availableSale })
-        .then(newGame => User.findByIdAndUpdate(req.user._id, {$push: {sellingGames: newGame._id}}))
-        .then(()=> User.findByIdAndUpdate(req.user._id, {$push: {stock:{number: availableSale, name: title}}}))
+        .create({ title, description, developer, rating, availableSale, images })
+        .then(newGame => User.findByIdAndUpdate(req.user._id, {$push: {
+            stock:{
+                game: newGame._id,
+                number: availableSale
+            }
+        }
+    }
+    ))
+        
         .then(()=> res.redirect('/perfil'))
         .catch(err => next(err))
 })
