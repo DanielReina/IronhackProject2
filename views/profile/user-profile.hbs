@@ -1,45 +1,45 @@
-<div class='container'>
-    <div class='row justify-content-between'>
-        <div class='cl-md-6' style="margin: 20px">
-
-
+<div class='container top-margin '>
+    <div class='row justify-content-center'>
+        <div class='col-md-3'>
             <img class='perfil-image' src="{{avatar.path}}" alt="fotografía de {{username}}">
-
         </div>
-        <div class='cl-md-4' style="margin: 20px">
-            <h1>Bienvenid@ {{username}}</h1>
+        <div class='col-md-7' style="margin: 20px">
+            <span class="span-grande"> Bienvenid@ {{username}}</span>
             <hr>
             <a href='/perfil/avatar' class="btn btn-dark">Subir Avatar</a>
             <a href="/perfil/mapa" class="btn btn-dark">Ir a mapas</a>
             <a href="/perfil/ubicacion" class="btn btn-dark">Añadir ubicación</a>
             <a href="/perfil/nuevojuego" class="btn btn-dark">Añade un juego a la BD</a>
         </div>
-
-        <hr>
-        <section class="container">
-
-            <h3>Jugos añadidos:</h3>
-
-            <div class="row">
-                {{#each stock}}
-                {{>gameCard this.game}}
-                {{/each}}
-            </div>
-        </section>
-
-
-        <section class="container">
-
-            <h3>Tus juegos favoritos:</h3>
-
-            <div class="row">
-                {{#each favoriteGames}}
-                {{>gameCard this}}
-                <br>
-                <a href="/juegos/borrarfavoritos?gameId={{_id}}" class="btn btn-dark" style="height: 40px">Borrar</a>
-                {{/each}}
-            </div>
-        </section>
     </div>
+    <hr>
+    <section class="container">
+        <div class="row justify-content-center">
+            <span class="span-medio">Juegos añadidos:</span>
+        </div>
+        <div class="row games-list">
+            {{#each stock}}
+            {{>gameCard this.game}}
+            {{/each}}
+        </div>
+    </section>
+
+
+    <section class="container">
+        <div class="row justify-content-center">
+            <span class="span-medio">Juegos favoritos:</span>
+        </div>
+        <div class="row games-list">
+            {{#each favoriteGames}}
+            {{>gameCard this}}
+            <a href="/juegos/borrarfavoritos?gameId={{_id}}" class="btn btn-dark" style="height: 40px">Borrar</a>
+            {{/each}}
+        </div>
+        <br>
+
+
+</div>
+</section>
+
 
 </div>

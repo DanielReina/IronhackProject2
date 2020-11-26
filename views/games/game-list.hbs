@@ -1,12 +1,15 @@
-<div class="container">
-  <section style="margin: 20px">
-    <h3>Jugos añadidos:</h3>
-    <div class="row">
+<div class="container top-margin">
+  <section>
+    <div class="row justify-content-center">
+      <span class="span-grande">Jugos añadidos: <small>Pulsa la imagen para más información</small></span>
+    </div>
+    <div class="row games-list">
       {{#each allgames}}
       {{>gameCard this}}
       {{/each}}
     </div>
   </section>
-  
-  <a href="/" class="btn btn-dark">Volver al inicio</a>
+  <div class="row justify-content-center">
+    <a href="/" class="btn btn-dark">Volver al inicio</a>
+  </div>
 </div>

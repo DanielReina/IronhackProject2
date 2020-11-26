@@ -3,7 +3,6 @@ const router = express.Router()
 const passport = require("passport")
 
 const User = require("../models/user.model")
-const Shop = require("../models/shop.model")
 
 const bcrypt = require("bcrypt")
 const bcryptSalt = 10

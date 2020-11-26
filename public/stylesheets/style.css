@@ -1,7 +1,11 @@
 body {
-  font-family: sans-serif; }
+  font-family: sans-serif;
+ }
 
-/*# sourceMappingURL=style.css.map */
+ .navbar {
+  font-family: 'Press Start 2P';
+ }
+
 
 #map {
   height: 500px;
@@ -10,27 +14,52 @@ body {
 img{
   width: 800px;
 }
-main{
+
+body{
   background-image: url(/images/bground3.jpg);
-  background-size: cover;  
-  background-position: 0 0;
+  background-size: cover;
   background-repeat: no-repeat;
  
 }
-.coasters-index{
+.coasters-index, .form-input, h1, h2, h3, h4, h5, p {
   background-color:white;
   opacity: .85;
 }
-
-h1, h2, h3, h4, h5, p{
-  background: white;
-  justify-content: center;
-  display: inline-block;
-  margin: 20px;
-  padding: 15px;
+.span-grande{
+  background-color:white;
+  opacity: .85;
+  margin: 5px 10px;
+  padding: 5px 10px;
+  font-size: 26px;
+  border: 1px solid black;
+  font-family: 'Press Start 2P';
 }
-.form-input{
-  background: white;
-  padding: 6px;
-  margin: 15px;
+.span-medio{
+  background-color:white;
+  opacity: .85;
+  margin: 5px 10px;
+  padding: 5px 10px;
+  font-size: 18px;
+  border: 1px solid black;
+  font-family: 'Press Start 2P';
+}
+.span-pequeño{
+  background-color:white;
+  opacity: .85;
+  margin: 5px 10px;
+  padding: 5px 10px;
+  font-size: 16px;
+  border: 1px solid black;
+}
+.top-margin{
+  margin-top: 20px;
+}
+.perfil-image{
+  width: 300px;
+  height: 325px;
+  border: 2px solid white;
+}
+.games-list img{
+  height: 140px;
+  object-fit: cover;
 }

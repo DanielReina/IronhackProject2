@@ -1,23 +1,25 @@
-<div class="container">
+<div class="container top-margin">
     <div class="row justify-content-center">
         <div class="col-md-6">
-
-            <h1>Ubicación</h1>
-
+            <div class="row justify-content-center">
+                <span class="span-grande"> Ubicación </span><br><br>
+            </div>
             <form action="/perfil/ubicacion" method="POST">
 
-                
-
                 <div class='form-group'>
-                   
-
-                    <input type="text" name="latitude" placeholder="latitud"><br><br>
-                    <input type="text" name="longitude" placeholder="longitud"><br><br>
-                    <p><small>Ejemplo: 37.39119521169887, -6.045642640625131</small></p>
+                    <div class="row justify-content-center">
+                        <input type="text" name="latitude" placeholder="latitud"><br><br>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input type="text" name="longitude" placeholder="longitud"><br><br>
+                    </div>
+                    <div class="row justify-content-center">
+                        <span class="span-pequeño"> Ejemplo: 37.39119521169887, -6.045642640625131 </span>
+                    </div>
                 </div>
-
-               
-                <button type='submit' class='btn btn-dark btn-block'>Añadir</button>
+                <div class="row justify-content-center">
+                    <button type='submit' class='btn btn-dark btn-block'>Añadir</button>
+                </div>
                 {{#if errorMsg}}
                 <p style="margin-top: 10px;background: red; color: white; text-align: center; padding: 10px">
                     {{errorMsg}}</p>

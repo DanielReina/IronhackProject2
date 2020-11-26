@@ -1,22 +1,32 @@
 <div class="container coasters-index">
-  <h1 style="font-weight: 100">{{thegame.title}}</h1>
-  <img src="{{thegame.images}}" alt="">
-  <h4>Dessarrollado por: {{thegame.developer}}</h4>
-  <p>Descripción: {{thegame.description}}</p>
-  <h4>Rating: {{thegame.rating}}/100</h4>
-  <h5>Unidades de {{thegame.title}} en venta: <a href="/juegos/ventas?gameId={{thegame.id}}"
-      class="btn btn-dark">{{thegame.availableSale}}</a></h5>
-  <h5>Interesados en comprar {{thegame.title}}: {{thegame.availableBuy}}</h5>
+  <div class="row justify-content-center">
+    <h1 style="font-weight: 100">{{thegame.title}}</h1>
+  </div>
+  <div class="row justify-content-center">
+    <img src="{{thegame.images}}" alt="Foto de {{thegame.images}}" style="margin-bottom: 15px">
+  </div>
+  <div class="row justify-content-center">
+    <h4>Dessarrollado por: {{thegame.developer}}</h4>
+  </div>
+  <div class="row justify-content-center">
+    <p>Descripción: {{thegame.description}}</p>
+  </div>
+  <div class="row justify-content-center">
+    <h4>Rating: {{thegame.rating}}/100</h4>
+  </div>
+  <div class="row justify-content-center">
+    <h5>Unidades de {{thegame.title}} en venta: <a href="/juegos/ventas?gameId={{thegame.id}}"
+        class="btn btn-dark">{{thegame.availableSale}}</a></h5>
+  </div>
 
+  <div class="row justify-content-center">
+    <a href="/juegos/favoritos?gameId={{thegame.id}}" class="btn btn-dark">Añadir a favoritos</a>
 
-  <a href="/juegos/favoritos?gameId={{thegame.id}}" class="btn btn-dark">Añadir a favoritos</a>
-  <a href="/juegos/incluir-venta?gameId={{thegame.id}}" class="btn btn-dark">Quiero venderlo</a>
-
-  <a href="/juegos" class="btn btn-dark">Volver a la lista de juegos</a>
-  <hr>
-  <a href="/juegos/imagen?gameId={{thegame.id}}" class="btn btn-dark">Subir imagen</a>
-  <hr>
-
+    <a href="/juegos/incluir-venta?gameId={{thegame.id}}" class="btn btn-dark" style="margin-left: 25px">Quiero
+      venderlo</a>
+    <a href="/juegos/imagen?gameId={{thegame.id}}" class="btn btn-dark" style="margin-left: 25px">Editar imagen</a>
+    <a href="/juegos" class="btn btn-dark" style="margin-left: 25px">Volver a la lista de juegos</a>
+  </div>
   {{#if isAdmin}}
   <a href="/juegos/editar?gameId={{thegame.id}}" class="btn btn-dark">Editar</a>
   <a href="/juegos/borrar?gameId={{thegame.id}}" class="btn btn-dark">Borrar</a>

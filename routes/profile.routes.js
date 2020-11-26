@@ -7,7 +7,7 @@ const Game = require('../models/game.model')
 const ensureAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.render('auth/login', { errorMsg: 'Desautorizado, inicia sesión' })
 const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(req.user.role) ? next() : res.render('auth/login', { errorMsg: 'Desautorizado, no tienes permisos' })
 
-router.get('/', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']),(req, res) => {
+router.get('/', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']),(req, res) => {
     User
         .findById(req.user._id)
         .populate('stock.game')
@@ -16,7 +16,7 @@ router.get('/', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']),(req
         .catch(err => next(err))
 })
 
-router.get('/nuevojuego', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) =>   res.render('profile/add-game', { user: req.user, allGames: req.user.games }))
+router.get('/nuevojuego', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res) =>   res.render('profile/add-game', { user: req.user, allGames: req.user.games }))
 
 router.post('/nuevojuego', CDNupload.single('imageFile'),(req, res, next) => {
     const { title, description, developer, rating, availableSale } = req.body
@@ -61,7 +61,7 @@ router.post('/nuevojuego', CDNupload.single('imageFile'),(req, res, next) => {
         .catch(error => next(error))
 })*/
 
-router.get('/avatar', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) =>   res.render('avatar', { user: req.user }))
+router.get('/avatar', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res) =>   res.render('avatar', { user: req.user }))
     
 router.post('/avatar', CDNupload.single('imageFile'), (req, res) => {
   
@@ -79,7 +79,7 @@ router.post('/avatar', CDNupload.single('imageFile'), (req, res) => {
 })
 
 
-router.get('/ubicacion', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) => {
+router.get('/ubicacion', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res) => {
      
     res.render('ubication', { user: req.user })
 })
@@ -100,7 +100,7 @@ router.post('/ubicacion', (req, res, next) => {
 })
 
 
-router.get('/mapa', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN', 'SHOP']), (req, res) => {
+router.get('/mapa', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res) => {
        
     res.render('maps', { user: req.user })
    

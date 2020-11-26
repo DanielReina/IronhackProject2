@@ -28,11 +28,13 @@ const gameSchema = new Schema({
     },
     availableSale: {
         type: Number,
-        default: 0
+        default: 0,
+        min: 0
     },
     availableBuy: {
         type: Number,
-        default: 0
+        default: 0,
+        min: 0
     },
     // sellingGames: [{
     //     type: Schema.Types.ObjectId,

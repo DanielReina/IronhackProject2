@@ -1,16 +1,14 @@
-<div class="container">
+<div class="container top-margin">
 
     <div class="row justify-content-center">
 
         <div class="col-md-6">
-
-            <h1>Sube una imágen</h1>
+            <div class="row justify-content-center">
+                <span class="span-grande"> Sube una imágen </span>
+            </div>
             <hr>
             <form method="POST" action="/perfil/avatar" enctype="multipart/form-data">
-                <div class='form-group'>
-                    <label for='imageName'>Nombre</label>
-                    <input name='imageName' type='text' class='form-control' id='imageName'>
-                </div>
+
                 <div class='form-group'>
                     <div class="custom-file">
                         <input name="imageFile" type="file" class="custom-file-input" id="imageFile">
