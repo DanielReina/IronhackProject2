@@ -129,9 +129,7 @@ router.post('/incluir-venta', (req, res, next) => {
     const {wantsale} = req.body
     Game
         .findByIdAndUpdate(gameId,{$inc: {availableSale: wantsale}}, {new: true})
-        .then(theGame =>{
-            // if()
-            User.findByIdAndUpdate(req.user._id, {$push: {stock: { game:theGame._id, number: wantsale}}}, {new: true})})
+        .then(theGame => User.findByIdAndUpdate(req.user._id, {$push: {stock: { game:theGame._id, number: wantsale}}}, {new: true}))
         .then(()=> res.redirect("/perfil"))
         .catch(err => next(err))
 })
