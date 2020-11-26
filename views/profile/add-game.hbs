@@ -9,11 +9,11 @@
 
       <form action="/perfil/nuevojuego" method="POST" enctype="multipart/form-data">
         <div class="form-group">
-          <label for="title-input">Título</label>
+          <label for="title-input" class="form-input">Título</label>
           <input name="title" type="text" class="form-control" id="title-input">
         </div>
         <div class="form-group">
-          <label for="description-input">Descripción</label>
+          <label for="description-input" class="form-input">Descripción</label>
           <input name="description" type="text" class="form-control" id="description-input">
         </div>
         <div class='form-group'>
@@ -23,15 +23,15 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="developer-input">Developers</label>
+          <label for="developer-input" class="form-input">Developers</label>
           <input name="developer" type="text" class="form-control" id="developer-input">
         </div>
         <div class="form-group">
-          <label for="rating-input">Rating</label>
+          <label for="rating-input" class="form-input">Rating</label>
           <input name="rating" type="number" class="form-control" id="rating-input">
         </div>
         <div class="form-group">
-          <label for="rating-input">Unidades para vender</label>
+          <label for="rating-input" class="form-input">Unidades para vender</label>
           <input name="availableSale" type="number" class="form-control" id="sellingGames-input">
         </div>
         {{#if errorMsg}}

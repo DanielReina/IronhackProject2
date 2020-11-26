@@ -21,3 +21,16 @@ main{
   background-color:white;
   opacity: .85;
 }
+
+h1, h2, h3, h4, h5, p{
+  background: white;
+  justify-content: center;
+  display: inline-block;
+  margin: 20px;
+  padding: 15px;
+}
+.form-input{
+  background: white;
+  padding: 6px;
+  margin: 15px;
+}
