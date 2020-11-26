@@ -91,6 +91,8 @@ router.get('/borrarfavoritos', (req, res, next) => {
     .then(() => res.redirect('/perfil'))
     .catch(err => next(err))
 })
+
+
 router.get('/ventas',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
     const gameId = req.query.gameId
     

@@ -1,12 +1,12 @@
 <div class="container coasters-index">
   <h1 style="font-weight: 100">{{thegame.title}}</h1>
   <img src="{{thegame.images}}" alt="">
-  <h4>Dessarrollado por: {{thegame.developer}}</h4>
+  <h4>Desarrollado por: {{thegame.developer}}</h4>
   <p>Descripción: {{thegame.description}}</p>
   <h4>Rating: {{thegame.rating}}/100</h4>
   <h5>Unidades de {{thegame.title}} en venta: <a href="/juegos/ventas?gameId={{thegame.id}}"
       class="btn btn-dark">{{thegame.availableSale}}</a></h5>
-  <h5>Interesados en comprar {{thegame.title}}: {{thegame.availableBuy}}</h5>
+  
 
 
   <a href="/juegos/favoritos?gameId={{thegame.id}}" class="btn btn-dark">Añadir a favoritos</a>

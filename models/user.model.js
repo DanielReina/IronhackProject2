@@ -21,7 +21,8 @@ const userSchema = new Schema({
     avatar: {        
         imageName: String,
         path: String,
-        originalName: String
+        originalName: String,
+             
     },
         
     email: {

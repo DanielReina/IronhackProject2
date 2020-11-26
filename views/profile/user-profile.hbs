@@ -3,6 +3,7 @@
         <div class='cl-md-6' style="margin: 20px">
 
 
+
             <img class='perfil-image' src="{{avatar.path}}" alt="fotografía de {{username}}">
 
         </div>
@@ -18,11 +19,12 @@
         <hr>
         <section class="container">
 
-            <h3>Jugos añadidos:</h3>
+            <h3>Juegos en venta:</h3>
 
             <div class="row">
                 {{#each stock}}
                 {{>gameCard this.game}}
+             
                 {{/each}}
             </div>
         </section>

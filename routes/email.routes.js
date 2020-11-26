@@ -22,15 +22,19 @@ console.log(req.query.vendorsId)
     let userMail = req.user.email
 User
 .findById(vendorsId)
-.then(vendor => 
-    transporter
-        .sendMail({
+.then(vendor => {
+    transporter.sendMail(
+        {
             from: userMail,
             to: vendor.email,
             subject,
             text: message,
             html: `<b>${message}</b>`
-        }))      
+        }
+     )
+        res.redirect('/juegos')
+    }
+  )      
 .catch(error => console.log(error))
 })
 
