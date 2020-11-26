@@ -98,10 +98,23 @@ router.get('/ventas',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, 
         .find({ sellingGames: { $all: [`${gameId}`] } } )
         .then(theUsers => {
             console.log(theUsers )
-            res.render('games/sell-games', {theUsers, user: req.user })
+            res.render('games/sell-games', {theUsers, user: req.user, number: req.user.stock.number })
     })
         .catch(err => next(err))
 })
+
+router.get('/vendedores',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
+    const userId = req.query.userId
+    User
+    .findById(userId)
+    .populate('sellingGames')
+    .then(theVendor => {
+        console.log(theVendor)
+        res.render('vendors-profile.hbs', theVendor)
+})
+    .catch(err => next(err))
+})
+
 router.get('/incluir-venta',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
     const gameId = req.query.gameId
     Game

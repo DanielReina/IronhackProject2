@@ -1,4 +1,12 @@
 {{#each theUsers}}
-<p>{{name}}</p>
+<p><a href="/juegos/vendedores?userId={{_id}}"
+      >{{username}}</a></p>
+
+<p>{{number}}</p>
 {{/each}}
 
+{{!-- <script>
+    for (let i = 0; i < req.user.stock.length; i++) {
+        if(theUsers.stock[i].name===)
+    }
+</script> --}}
