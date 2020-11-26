@@ -16,7 +16,7 @@ router.get('/',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, n
 
 
 router.post('/', (req, res) => {
-
+console.log(req.query.vendorsId)
     const { email, subject, message } = req.body
     let vendorsId =req.query.vendorsId
     let userMail = req.user.email
