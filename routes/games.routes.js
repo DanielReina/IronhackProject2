@@ -100,7 +100,7 @@ router.get('/ventas',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, 
         .find({ 'stock.game':{ $all: [`${gameId}`]  } })
         .then(theUsers => {
             console.log(theUsers )
-    const gameId = req.query.gameId
+   
             res.render('games/sell-games', {theUsers})
     })
         .catch(err => next(err))
