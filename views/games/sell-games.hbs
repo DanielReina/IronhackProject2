@@ -1,11 +1,9 @@
 <div class="container top-margin sell-games-vista">
-
     <div class="row justify-content-center">
         <span class="span-grande">Lista de vendedores: </span>
     </div>
     <hr>
     <div class="row justify-content-center">
-
         {{#each theUsers}}
         <img src="{{avatar.path}}" alt="foto de perfil de {{username}}" style="width: 38px; height: 38px">
         <a href="/juegos/vendedores?userId={{_id}}">
@@ -13,7 +11,5 @@
         </a>
         {{/each}}
     </div>
-
-
 </div>
 </div>

@@ -21,10 +21,8 @@ const userSchema = new Schema({
     avatar: {        
         imageName: String,
         path: String,
-        originalName: String,
-             
+        originalName: String,      
     },
-        
     email: {
         type: String,
         required: true,
@@ -34,20 +32,15 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
-       
     },
     role: {
         type: String,
         enum: ['ADMIN', 'NORMAL'],
         default: 'NORMAL'
     },
-    // sellingGames: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Game',       // nombre del modelo asociado
-    // }],
     favoriteGames: [{
         type: Schema.Types.ObjectId,
-        ref: 'Game'       // nombre del modelo asociado
+        ref: 'Game'       
     }],
     location: {
         type: {
@@ -65,13 +58,12 @@ const userSchema = new Schema({
         },
         game:{
             type: Schema.Types.ObjectId,
-            ref: 'Game',       // nombre del modelo asociado
+            ref: 'Game',       
         }
     }]
 }, {
     timestamps: true
 });
-
 
 userSchema.index({ location: '2dsphere' }) 
 const User = mongoose.model("User", userSchema);

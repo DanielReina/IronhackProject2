@@ -6,6 +6,5 @@ module.exports = app => {
     app.use('/perfil', require('./profile.routes.js'))
     app.use('/api', require('./api.routes.js'))
     app.use('/email', require('./email.routes.js'))
-    
 
 }

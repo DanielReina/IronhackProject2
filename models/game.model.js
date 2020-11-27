@@ -19,7 +19,6 @@ const gameSchema = new Schema({
         default: 'Desconocido',
     },
     images: String,
-    
     rating: {
         type: Number,
         required: true,
@@ -36,11 +35,6 @@ const gameSchema = new Schema({
         default: 0,
         min: 0
     },
-    // sellingGames: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Game',       // nombre del modelo asociado
-    // }],
-
 }, {
     timestamps: true
 });

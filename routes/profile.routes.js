@@ -13,7 +13,7 @@ router.get('/', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']),(req, res) =
         .populate('stock.game')
         .populate('favoriteGames')
         .then(userFound => res.render('profile/user-profile', userFound))
-        .catch(err => next(err))
+        .catch(err => next(new Error(err)))
 })
 
 router.get('/nuevojuego', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res) =>   res.render('profile/add-game', { user: req.user, allGames: req.user.games }))
@@ -30,42 +30,14 @@ router.post('/nuevojuego', CDNupload.single('imageFile'),(req, res, next) => {
             }
         }
     }
-    ))
-        
+    ))  
         .then(()=> res.redirect('/perfil'))
-        .catch(err => next(err))
+        .catch(err => next(new Error(err)))
 })
-/*
-// router.post("/nuevojuego", (req, res, next) => {
-
-//     const { title, description, developer, rating } = req.body
-
-    if (!title || !description || !developer || !rating ) {
-        res.render("profile/add-game", { errorMsg: "Rellena todos los campos" })
-        return
-    }
-    Game
-        .findOne({ title })
-        .then(title => {
-            if (title) {
-                res.render("profile/add-game", { errorMsg: "El juego ya existe" })
-                return
-            }
-            Game
-            .create({ title, description, developer, rating })
-            .then(newGame => User.findByIdAndUpdate(req.user._id, {$push: {sellingGames: newGame._id}}))
-            //s.then(()=> User.findByIdAndUpdate(req.user._id, {$push: {stock: availableSale}}))
-            .then(()=> res.redirect('/'))
-            .catch(err => next(err))
-        })
-        .catch(error => next(error))
-})*/
 
 router.get('/avatar', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res) =>   res.render('avatar', { user: req.user }))
     
 router.post('/avatar', CDNupload.single('imageFile'), (req, res) => {
-  
-
     User
         .findByIdAndUpdate(req.user.id, {
             avatar: {
@@ -78,7 +50,6 @@ router.post('/avatar', CDNupload.single('imageFile'), (req, res) => {
         .catch(err => next(new Error(err)))
 })
 
-
 router.get('/ubicacion', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res) => {
      
     res.render('ubication', { user: req.user })
@@ -86,7 +57,6 @@ router.get('/ubicacion', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (r
     
 router.post('/ubicacion', (req, res, next) => {
    const { latitude, longitude } = req.body
-
     const location = {
         type: 'Point',
         coordinates: [latitude, longitude]
@@ -99,12 +69,8 @@ router.post('/ubicacion', (req, res, next) => {
         .catch(err => next(new Error(err)))
 })
 
-
 router.get('/mapa', ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res) => {
-       
     res.render('maps', { user: req.user })
-   
- 
 })
 
 module.exports = router

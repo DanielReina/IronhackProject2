@@ -9,34 +9,29 @@ const checkRole = admittedRoles => (req, res, next) => admittedRoles.includes(re
 router.get('/',ensureAuthenticated, checkRole(['NORMAL', 'ADMIN']), (req, res, next) => {
     let vendorsId =req.query.vendorsId
     User
-.findById(vendorsId)
-.then(vendor => res.render('send-email', vendor))
-.catch(err => next(new Error(err)))
+        .findById(vendorsId)
+        .then(vendor => res.render('send-email', vendor))
+        .catch(err => next(new Error(err)))
 })
 
-
 router.post('/', (req, res) => {
-console.log(req.query.vendorsId)
     const { email, subject, message } = req.body
     let vendorsId =req.query.vendorsId
     let userMail = req.user.email
-User
-.findById(vendorsId)
-.then(vendor => {
-    transporter.sendMail(
+    User
+        .findById(vendorsId)
+        .then(vendor => {
+        transporter.sendMail(
         {
             from: userMail,
             to: vendor.email,
             subject,
             text: message,
             html: `<b>${message}</b>`
-        }
-     )
+        })
         res.redirect('/juegos')
-    }
-  )      
-.catch(error => console.log(error))
+        })      
+        .catch(err => next(new Error(err)))
 })
-
 
 module.exports = router
